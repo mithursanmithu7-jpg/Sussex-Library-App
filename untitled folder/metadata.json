@@ -1,0 +1,6 @@
+{
+  "name": "Sussex Library Live",
+  "description": "Futuristic spatial digital twin, live workstation & booth finder, shelf confidence tracker, and autonomous study assistant for Sussex postgraduate students.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

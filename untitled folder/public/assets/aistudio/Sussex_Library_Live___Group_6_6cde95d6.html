@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Sussex Library Live – Group 6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--cy:#003B49;--cyd:#002630;--cym:#005266;--gold:#E2B979;--goldsoft:#FDF8EE;
+--card:#fff;--ink:#0F1F24;--mut:#4A5B61;--line:#DDD8CE;--shell:#F5F3EE;
+--ok:#1B6B2F;--okbg:#E8F5E9;--warn:#8A5A00;--warnbg:#FFF4D6;--bad:#9F1239;--badbg:#FFF1F2;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--card:#0b3440;--ink:#F2EEE4;--mut:#B7C6CA;--line:#1d5362;--shell:#00303c;
+--goldsoft:#12414f;--okbg:#0e3b25;--ok:#8be0a6;--warnbg:#3f3410;--warn:#f1cf7a;--badbg:#4a1626;--bad:#ffb3c4}}
+:root[data-theme="dark"]{--card:#0b3440;--ink:#F2EEE4;--mut:#B7C6CA;--line:#1d5362;--shell:#00303c;--goldsoft:#12414f;--okbg:#0e3b25;--ok:#8be0a6;--warnbg:#3f3410;--warn:#f1cf7a;--badbg:#4a1626;--bad:#ffb3c4}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--cyd);color:var(--ink);font-family:'Public Sans',system-ui,sans-serif;line-height:1.45;padding:10px;min-height:100vh}
+.app{max-width:760px;margin:0 auto;background:var(--shell);border-radius:20px;overflow:hidden;border:3px solid rgba(226,185,121,.5)}
+header{background:var(--cy);color:#fff;padding:16px 18px;border-bottom:3px solid var(--gold)}
+header h1{font-size:20px;font-weight:800}
+header p{font-size:13px;opacity:.85;margin-top:2px}
+nav{display:flex;gap:4px;overflow-x:auto;background:var(--cyd);padding:8px 8px 0}
+nav button{flex:none;border:0;background:transparent;color:#cfe0e4;font:600 13px inherit;font-family:inherit;padding:9px 12px;border-radius:10px 10px 0 0;cursor:pointer}
+nav button[aria-selected=true]{background:var(--shell);color:var(--cy)}
+@media (prefers-color-scheme:dark){nav button[aria-selected=true]{color:var(--gold)}}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+main{padding:16px}
+.banner{border-radius:12px;padding:10px 12px;font-size:13px;margin-bottom:12px;background:var(--okbg);color:var(--ok)}
+.banner.late{background:var(--warnbg);color:var(--warn)}.banner.off{background:var(--badbg);color:var(--bad)}
+.sim{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--mut);margin-bottom:12px}
+.sim button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 11px;font:600 12px inherit;font-family:inherit;cursor:pointer}
+.sim button[aria-pressed=true]{background:var(--cy);color:#fff;border-color:var(--cy)}
+h2{font-size:17px;font-weight:800;color:var(--cy);margin:2px 0 4px}
+@media (prefers-color-scheme:dark){h2{color:var(--gold)}}
+.sub{font-size:13px;color:var(--mut);margin-bottom:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:10px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.name{font-weight:700;font-size:14px}.meta{font-size:12px;color:var(--mut)}
+.tag{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px;background:var(--okbg);color:var(--ok)}
+.tag.w{background:var(--warnbg);color:var(--warn)}.tag.b{background:var(--badbg);color:var(--bad)}
+.bar{height:8px;border-radius:6px;background:var(--line);margin-top:8px;overflow:hidden}.bar i{display:block;height:100%;background:var(--cym)}
+.btn{border:0;border-radius:10px;padding:8px 13px;font:700 13px inherit;font-family:inherit;cursor:pointer;background:var(--cy);color:#fff}
+.btn.g{background:var(--gold);color:var(--cyd)}.btn.o{background:transparent;color:var(--cy);border:1px solid var(--cy)}
+@media (prefers-color-scheme:dark){.btn.o{color:var(--gold);border-color:var(--gold)}.btn{background:var(--cym)}}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chips button{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:6px 12px;font:600 12px inherit;font-family:inherit;cursor:pointer}
+.chips button[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:var(--cyd)}
+.note{background:var(--goldsoft);border-left:4px solid var(--gold);border-radius:8px;padding:9px 11px;font-size:13px;margin-top:8px}
+.temp{display:flex;align-items:center;gap:10px}.temp b{font-size:26px;min-width:68px;text-align:center}
+.stage{background:var(--cy);color:#fff;border-radius:14px;padding:22px 16px;text-align:center;min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px}
+.stage .ic{font-size:52px}.stage h3{font-size:17px}.stage p{font-size:13px;opacity:.9;max-width:460px;margin:0 auto}
+.prog{display:flex;gap:4px;margin:10px 0}.prog i{flex:1;height:5px;border-radius:4px;background:var(--line)}.prog i.on{background:var(--gold)}
+select,input[type=search]{width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:14px inherit;font-family:inherit;margin-bottom:10px}
+@media (prefers-reduced-motion:no-preference){.stage .ic{animation:pop .5s}@keyframes pop{from{transform:scale(.6);opacity:0}}}
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--cyd);color:#fff;border:1px solid var(--gold);border-radius:12px;padding:10px 14px;font-size:13px;max-width:92vw;z-index:9}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+<div class="app">
+<header><h1>Sussex Library Live</h1><p>Design Thinking and Innovation Practices · Group 6 · for postgraduates working on laptops and phones</p></header>
+<nav role="tablist" id="nav"></nav>
+<main id="main"></main>
+</div>
+<div class="toast" id="toast" hidden role="status"></div>
+<script>
+const $=s=>document.querySelector(s);
+const TABS=[["twin","Digital twin"],["bot","Chatbot"],["fun","Fun Library"],["vr","VR tour"],["site","vs Website"],["auto","Autopilot"],["ai","Ask & plan"],["live","Live view"],["now","Now"],["rooms","Rooms & temperature"],["pcs","Computers"],["books","Find a book"],["wifi","Wi-Fi"],["video","Lending video"],["future","Future trends"],["staff","Staff view"],["test","Test"]];
+const S={tab:"twin",pts:0,stairs:0,qs:{quiet:0,sprint:0},snd:0,msgs:[{r:"bot",m:"Hi, I’m the Sussex Library assistant. Ask about call booths, PCs with your software, how busy it is, study rooms or borrowing."}],st:0,vi:0,issues:[],log:[],ap:null,zi:0,layer:"use",rt:null,q:"",plan:"",cf:0,tests:{},ex:"ok",pcSw:"All",book:0,booths:{2:5,3:2},hold:null,step:0,play:false,timer:null,
+ rooms:[{n:"Ground Floor Tech Hub",t:21.5,goal:21.5,req:0},{n:"Floor 1 Silent Reading",t:20.5,goal:20.5,req:0},{n:"Floor 2 Postgraduate Pods",t:21,goal:21,req:0},{n:"Floor 3 Dissertation Suite",t:21.5,goal:21.5,req:0}],
+ floors:[{n:"Ground Floor",use:62,note:"Social, café nearby",wifi:5},{n:"Floor 1",use:71,note:"Silent study, no calls",wifi:4},{n:"Floor 2",use:58,note:"Call booths and PC cluster",wifi:5},{n:"Floor 3",use:44,note:"Deep focus, viva pods",wifi:4}],
+ pcs:[{id:"PC-204",f:"Floor 2",sw:["SPSS","NVivo","Python"],ok:1},{id:"PC-208",f:"Floor 2",sw:["SPSS","Stata","Python"],ok:1},{id:"PC-301",f:"Floor 3",sw:["NVivo","Python"],ok:1},{id:"PC-112",f:"Floor 1",sw:["MATLAB","Python"],ok:1},{id:"PC-215",f:"Floor 2",sw:["SPSS","MATLAB","Stata"],ok:0}],
+ books:[{t:"Research Methods in Psychology",a:"Morling",shelf:"Floor 1, Bay 4B, shelf 3",free:2,tot:4,seen:"2 min ago",miss:0},{t:"Discovering Statistics Using SPSS",a:"Field",shelf:"Floor 2, Bay 6A, shelf 2",free:0,tot:5,seen:"6 min ago",miss:0},{t:"Change by Design",a:"Brown",shelf:"Floor 2, Bay 1A, shelf 4",free:3,tot:3,seen:"4 min ago",miss:0}],
+ steps:[["🔎","Check the catalogue","Find the book in Library Search, then open Find a book here. The shelf shows a green check only when it was confirmed recently. If every copy is out, the e-book opens instead."],["🚶","Go to the shelf","Follow the floor, bay and shelf shown. If the book isn’t there, tap “Not on shelf” so staff are told straight away."],["💳","Borrow at the kiosk","Place the book on the self-issue pad and tap your Sussex ID card. The due date appears in your account."],["🔁","Renew or return","Loans renew automatically unless another student requests the book. Return it at any desk or return point."],["🛟","If something goes wrong","Book missing, card not reading or kiosk down? Use Not on shelf, try the e-book, or ask at the Help Desk. Nothing is lost."]]};
+const note=m=>{const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(note.h);note.h=setTimeout(()=>t.hidden=true,3500)};
+const age=()=>S.ex==="late"?"14 min ago":S.ex==="offline"?"09:42 (saved copy)":"just now";
+const stale=()=>S.ex!=="ok", off=()=>S.ex==="offline";
+function banner(){
+ const m={ok:"Live: updated "+age()+".",late:"Live data is late. Showing the last confirmed values from 14 minutes ago. Treat free seats and booths as unconfirmed.",offline:"No connection. Showing a saved copy from 09:42. Booking and reporting are paused until you’re back online."}[S.ex];
+ return `<div class="sim"><span>Test an exception:</span>${[["ok","Normal"],["late","Data delayed"],["offline","Offline"]].map(([k,l])=>`<button aria-pressed="${S.ex===k}" onclick="S.ex='${k}';draw()">${l}</button>`).join("")}</div><div class="banner ${S.ex==="late"?"late":S.ex==="offline"?"off":""}">${m}</div>`}
+function tag(ok,yes,no){return `<span class="tag ${stale()?"w":ok?"":"b"}">${stale()?"Unconfirmed":ok?yes:no}</span>`}
+const V={
+fun(){const L="CDEFGABC".split(""),nx=[[25,"10 free print pages"],[50,"Booth priority for a day"],[100,"Your group name on the Focus wall"]].find(r=>r[0]>S.pts),T=[["Group 6",S.pts],["Psychology MSc",88],["Data Science MSc",64]].sort((a,b)=>b[1]-a[1]);
+return `<h2>Fun Library</h2><p class="sub">Make the right choice the fun choice. Climb the piano stairs, earn points for quiet floors and focus sprints, and see why the library beats working at home.</p>
+<div class="card"><div class="name">Piano stairs</div><div class="meta">Tap the steps to play. On real stairs, sensors under each step would play a note and the app would count your climb.</div>
+<div style="display:flex;align-items:flex-end;gap:4px;margin-top:10px">${L.map((k,i)=>`<button aria-label="Step ${i+1}, note ${k}" onclick="stp(${i})" style="flex:1;height:${48+i*14}px;border:1px solid var(--line);border-radius:6px 6px 2px 2px;cursor:pointer;font-weight:700;font-size:12px;font-family:inherit;background:${i%2?"var(--cy)":"#fff"};color:${i%2?"#fff":"#0F1F24"}">${k}</button>`).join("")}</div>
+<div class="meta" style="margin-top:8px">Steps today: <b>${S.stairs}</b> · floors climbed: <b>${Math.floor(S.stairs/8)}</b> · the lift earns 0 points, every step earns 1.</div></div>
+<div class="card"><div class="row"><div class="name">Your points: ${S.pts}</div><span class="tag">${nx?"Next: "+nx[1]+" at "+nx[0]:"All rewards unlocked"}</span></div><div class="bar"><i style="width:${Math.min(100,S.pts)}%"></i></div><div class="meta" style="margin-top:6px">Reward ideas for a pilot, not real Sussex offers.</div>
+<div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn" ${S.qs.quiet?"disabled":""} onclick="S.pts+=20;S.qs.quiet=1;note('Checked in on a quiet floor. Double points: +20');draw()">Check in on Floor 3 (44% full): +20</button><button class="btn o" ${S.qs.sprint?"disabled":""} onclick="sprint()">${S.qs.sprint===1?"Sprint running…":S.qs.sprint===2?"Sprint done":"Start a focus sprint (demo 10 sec): +15"}</button></div></div>
+<div class="card"><div class="name">Group leaderboard (demo teams)</div>${T.map((t,i)=>`<div class="row" style="margin-top:6px"><span>${i+1}. ${t[0]}</span><b>${t[1]} pts</b></div>`).join("")}</div>
+<div class="card"><div class="name">Focus sound</div><div class="meta">A calm background sound for headphones, made in your browser.</div><div style="margin-top:8px"><button class="btn ${S.snd?"o":""}" onclick="noise(${S.snd?0:1})">${S.snd?"Turn off":"Play soft noise"}</button></div></div>
+<div class="card"><div class="name">Free power sockets for your laptop (demo)</div>${[["Ground Floor",26],["Floor 1",18],["Floor 2",30],["Floor 3",24]].map(f=>`<div class="row" style="margin-top:6px"><span>${f[0]}</span><span class="tag">${f[1]} free</span></div>`).join("")}</div>
+<h2 style="margin-top:14px">Why choose the library over home?</h2>
+${["Power and a strong phone signal at your desk, checked live in the Digital twin.","Software that is costly at home, such as SPSS and NVivo, on library PCs.","Call booths and quiet floors, so you can take calls and still focus.","Points, sprints and the piano stairs make coming in rewarding."].map(x=>`<div class="note">${x}</div>`).join("")}
+<p class="meta" style="margin-top:10px">Evidence: in 2009 Volkswagen’s Fun Theory turned a Stockholm subway staircase into a piano, and 66% more people than usual chose the stairs over the escalator during a one-day test. It was one day only, so a library pilot should track whether the effect lasts through a term.</p>`},
+bot(){return `<h2>Library chatbot</h2><p class="sub">Ask in plain English. It answers from live demo data and the Library website, and hands over to a person when it isn’t sure.</p>
+<div class="card" id="chat" style="max-height:340px;overflow:auto;display:flex;flex-direction:column;gap:8px">${S.msgs.map(m=>`<div style="align-self:${m.r==="me"?"flex-end":"flex-start"};max-width:85%;padding:8px 11px;border-radius:12px;font-size:13px;background:${m.r==="me"?"var(--cy)":"var(--goldsoft)"};color:${m.r==="me"?"#fff":"var(--ink)"}">${m.m}</div>`).join("")}</div>
+<div class="chips">${["Is there a free call booth?","Which PC has SPSS?","How busy is it?","How do I book a study room?","Talk to a person"].map(x=>`<button onclick="send('${x}')">${x}</button>`).join("")}</div>
+<div style="display:flex;gap:6px"><input type="search" id="bq" aria-label="Message" placeholder="Type a message" style="margin:0" onkeydown="if(event.key==='Enter')send()"><button class="btn g" onclick="send()">Send</button></div>`},
+vr(){return `<h2>Virtual library tour</h2><p class="sub">Walk the library before you arrive. Drag to look around. On a phone, use Cardboard view with a headset viewer. On a WebXR headset, use Enter VR.</p>
+<div id="vr" style="height:320px;border-radius:14px;overflow:hidden;touch-action:none;background:#002630"></div>
+<div class="chips" style="margin-top:10px">${["Overview","Shelf aisle","Call booths"].map((n,i)=>`<button onclick="vrGo(${i})">${n}</button>`).join("")}<button onclick="S.st=!S.st;this.setAttribute('aria-pressed',S.st)" aria-pressed="false">Cardboard view</button><button id="xrb" onclick="enterXR()" hidden>Enter VR</button></div>
+<div class="note">This is a stylised model, not a scan of the real library. A real version would use a 3D scan of each floor, with live data shown on the shelves, booths and PCs. Green lights on the booths mean free.</div>`},
+future(){const H=[["Now: this prototype","Simulated data","Digital twin with trust scores, autopilot, chatbot, voice and a VR walkthrough, built to test ideas with students."],["Next 12 months: pilot one floor","Real sensors","Privacy-safe occupancy counts, RFID shelf checks, check-in nudges for booked rooms, and a chatbot that hands over to staff. Measure walking time saved and wrong-shelf trips avoided."],["2 to 3 years: connected library","Campus-wide","Digital twin tied to heating and Wi-Fi systems, personal study agents inside Library Search and Canvas, AR wayfinding to the exact shelf, and AI study tools such as summaries and translation."],["3 to 5 years: immersive library","Emerging","VR and AR spaces for teaching and viva practice, ambient assistants in study rooms, and predictive staffing and opening hours based on demand."]];
+const Rk=[["Privacy","Count people, don’t identify them. Run a data protection impact assessment before any camera or Wi-Fi tracking."],["Accuracy","Chatbots can be wrong. Show sources and always offer a route to a person."],["Access","Everything must work with screen readers, captions and low-bandwidth phones."],["Cost and culture","Pilot small, measure, and keep library staff in the loop."]];
+return `<h2>Where the library website is heading</h2><p class="sub">A roadmap for Group 6. Recent library technology writing keeps returning to AI services, IoT and smart spaces, and immersive VR and AR.</p>`+H.map(h=>`<div class="card"><div class="row"><div class="name">${h[0]}</div><span class="tag w">${h[1]}</span></div><div class="meta" style="margin-top:6px">${h[2]}</div></div>`).join("")+`<h2 style="margin-top:14px">Risks to design for</h2>`+Rk.map(r=>`<div class="note"><b>${r[0]}:</b> ${r[1]}</div>`).join("")+`<p class="meta" style="margin-top:10px">Trend sources: Computers in Libraries (Mar/Apr 2026) on AI in library systems; an SJSU 2026 chapter on immersive smart library ecosystems; reviews of chatbots and VR in academic libraries.</p>`},
+site(){const R=[["Find a book","Library Search shows the catalogue record.","Adds shelf confidence, a Not on shelf alert to staff and an instant e-book fallback."],["Study room","Book a group room on the Library site: 3 hours a day, and check in at the door QR code within 30 minutes.","Adds check-in reminders and an automatic Plan B if the booking is cancelled."],["Call booth right now","No live free-now view on the pages reviewed.","Shows free booths per floor and holds one for 15 minutes."],["Which PC has my software","Not shown on the pages reviewed.","Filters PCs by SPSS, NVivo, Python and more, and reroutes if one is taken."],["How busy is it","Not shown on the pages reviewed.","Digital twin with trust scores and a best-time forecast."],["Phone Wi-Fi and comfort","Not shown on the pages reviewed.","Signal by zone, room temperature requests and issue reports."],["When something goes wrong","Chat 9am to 5pm Monday to Friday, or the Service Desk in staffed hours.","Autopilot re-plans at any hour, and the Staff view groups reports so causes get fixed once."]];
+return `<h2>What the website already does, and what this adds</h2><p class="sub">The Library website is the front door: information and booking links. This app is the live layer on top, so it never replaces those services.</p>`+R.map(r=>`<div class="card"><div class="name">${r[0]}</div><div class="meta" style="margin-top:4px"><b>Website:</b> ${r[1]}</div><div class="note"><b>This app:</b> ${r[2]}</div></div>`).join("")+`<h2 style="margin-top:14px">Official Library services</h2><div class="chips">${[["Library Search","https://sussex.primo.exlibrisgroup.com/discovery/search?vid=44SUS_INST:44SUS_VU1"],["Book a study room","https://sussex.libcal.com/space/17805"],["Library chat","https://sussex-ac-uk.libanswers.com/chat/widget/149b172f7b741bce9b79194bbe0b49e3c94edad4cfdb50652ab570001b3ccda0"],["Opening hours","https://www.sussex.ac.uk/library/using-the-library/hours"]].map(l=>`<a href="${l[1]}" target="_blank" rel="noopener" class="btn o" style="text-decoration:none">${l[0]}</a>`).join("")}</div><p class="meta">Based on the Library home page and Study rooms page. Check other pages before you present this.</p>`},
+twin(){const Z=zones(S.cf),L={use:["Seats taken",z=>z.use/100,z=>z.use+"%"],wifi:["Phone signal",z=>(5-z.bars)/4,z=>z.bars+"/5"],temp:["Temperature",z=>Math.min(1,Math.abs(z.temp-21)/2),z=>z.temp.toFixed(1)+"°"],noise:["Noise",z=>Math.min(1,Math.max(0,(z.noise-30)/30)),z=>z.noise+" dB"]},ly=L[S.layer],zz=Z[S.zi],kf=S.ex==="ok"?1:S.ex==="late"?.6:.3,src=[["Camera people count",96],["Wi-Fi device count",91],["RFID shelf tags",99],["PC log-ins",100]].map(([n,v])=>[n,Math.round(v*kf)]),fu=Math.round(src.reduce((a,s)=>a+s[1],0)/src.length);
+const rt=S.rt!=null?`<path d="M20 282 L${162+(S.rt%2)*315} ${72+Math.floor(S.rt/2)*135}" stroke="#003B49" stroke-width="5" stroke-dasharray="8 8" fill="none"><animate attributeName="stroke-dashoffset" from="32" to="0" dur="1s" repeatCount="indefinite"/></path>`:"";
+return `<h2>Digital twin</h2><p class="sub">A live model of each floor, built from cameras, Wi-Fi, shelf tags and PC log-ins. Tap a zone to see how far to trust it.</p>
+<div class="chips">${S.floors.map((x,i)=>`<button aria-pressed="${S.cf===i}" onclick="S.cf=${i};S.rt=null;draw()">${x.n}</button>`).join("")}</div>
+<div class="chips">${Object.keys(L).map(k=>`<button aria-pressed="${S.layer===k}" onclick="S.layer='${k}';draw()">${L[k][0]}</button>`).join("")}</div>
+<div class="card" style="padding:8px"><svg viewBox="0 0 640 290" style="width:100%" role="group" aria-label="Floor map">${Z.map((q,i)=>{const x=10+(i%2)*315,y=10+Math.floor(i/2)*135,b=ly[1](q);return `<g onclick="S.zi=${i};draw()" style="cursor:pointer"><rect x="${x}" y="${y}" width="305" height="125" rx="12" fill="hsl(${140-b*130},55%,68%)" stroke="${S.zi===i?"#003B49":"none"}" stroke-width="5"/><text x="${x+14}" y="${y+30}" font-size="16" font-weight="700" fill="#0F1F24">${q.n}</text><text x="${x+14}" y="${y+78}" font-size="32" font-weight="800" fill="#0F1F24">${ly[2](q)}</text></g>`}).join("")}${rt}</svg><div class="meta">Green is better, red is worse.</div></div>
+<div class="card"><div class="row"><div class="name">${S.floors[S.cf].n}: ${zz.n}</div><span class="tag ${fu>=80?"":"w"}">Trust ${fu}%</span></div>
+${src.map(s=>`<div class="meta" style="margin-top:6px">${s[0]} ${s[1]}%</div><div class="bar" style="margin-top:2px"><i style="width:${s[1]}%"></i></div>`).join("")}
+<div class="note">${fu>=80?"Four independent sources agree, so it’s safe to act on.":"Sources are stale or missing. Check before you travel."}</div>
+<div style="margin-top:8px"><button class="btn g" onclick="S.rt=S.zi;draw()">Route me here</button></div></div>`},
+auto(){const a=S.ap;return `<h2>Autopilot</h2><p class="sub">Set a goal once. The agent watches live events and re-plans for you, so you never walk the floors to find out something changed.</p>
+${a?`<div class="card"><div class="name">Active plan</div><div class="meta">${a.pc?a.pc+" ("+pf(a.pc)+")":"Queued for "+a.sw} · ${a.sw}${a.call?" · call booth, Floor "+a.bf:""}</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn g" onclick="apTick()">Inject a random event</button><button class="btn o" onclick="apStop()">Stop</button></div></div>`:`<div class="card"><select id="asw" aria-label="Software">${["SPSS","NVivo","Python","MATLAB","Stata"].map(s=>`<option>${s}</option>`).join("")}</select><label class="meta"><input type="checkbox" id="acall"> I also need a call booth</label><div style="margin-top:8px"><button class="btn" ${off()?"disabled":""} onclick="apStart()">Start autopilot</button></div></div>`}
+<h2 style="margin-top:12px">Agent log</h2>${S.log.map(l=>`<div class="card"><div class="meta">${l.t}</div>${l.m}</div>`).join("")||`<div class="note">Nothing yet. Start autopilot to see events and how the agent responds.</div>`}`},
+staff(){const g={};S.issues.forEach(i=>g[i]=(g[i]||0)+1);const e=Object.entries(g);return `<h2>Staff view</h2><p class="sub">Student reports and sensor flags arrive here, grouped so staff fix the cause once. This closes the loop between the screen and the floor.</p>`+(e.length?e.map(([k,n])=>`<div class="card"><div class="row"><div class="name">${k}</div><span class="tag ${n>1?"b":"w"}">${n>1?"Priority":"New"} · ${n} report${n>1?"s":""}</span></div></div>`).join(""):`<div class="note">No reports yet. Use Not on shelf, Software not working or Weak signal here in the student tabs.</div>`)},
+ai(){const hrs=[35,48,62,70,66,58,60,64,52,44,38,30],m=Math.min(...hrs),q=hrs.indexOf(m)+9;
+return `<h2>Ask the library</h2><p class="sub">Describe what you need. The assistant builds a session plan from PCs, booths, rooms and Wi-Fi. Demo logic runs on this page.</p>
+<input type="search" id="q" aria-label="What do you need?" placeholder="e.g. I need SPSS and a booth for a call, and I’m cold" value="${S.q}" onkeydown="if(event.key==='Enter')plan()">
+<div class="chips">${["SPSS and a call booth","NVivo, quiet, too warm","MATLAB please"].map(x=>`<button onclick="$('#q').value='${x}';plan()">${x}</button>`).join("")}</div>
+<button class="btn g" onclick="plan()">Plan my session</button> <button class="btn o" onclick="voice()">Speak</button>${S.plan}
+<h2 style="margin-top:18px">Best time to come</h2><p class="sub">Forecast from past patterns (demo). Quietest slot today: ${q}:00 to ${q+1}:00.</p>
+<div class="card"><div style="display:flex;align-items:flex-end;gap:4px;height:100px">${hrs.map((h,i)=>`<div style="flex:1;text-align:center"><div style="height:${h}px;background:${h===m?"var(--gold)":"var(--cym)"};border-radius:4px 4px 0 0"></div><div class="meta" style="font-size:10px">${i+9}</div></div>`).join("")}</div></div>`},
+live(){const f=S.floors[S.cf];return `<h2>Live floor view</h2><p class="sub">A look inside before you travel. This demo feed is a simulated, anonymised camera view. A real rollout would count people only: no faces, no recording.</p>
+<div class="chips">${S.floors.map((x,i)=>`<button aria-pressed="${S.cf===i}" onclick="S.cf=i;draw()">${x.n}</button>`).join("")}</div>
+<div class="card" style="padding:8px"><canvas id="cam" width="640" height="360" style="width:100%;border-radius:10px;background:#002630" aria-label="Simulated anonymised view of ${f.n}"></canvas>
+<div class="row" style="margin-top:6px"><span class="meta">${f.n} · about ${f.use}% of seats taken · ${stale()?"last frame "+age():"live (simulated)"}</span><span class="tag">Anonymous</span></div></div>
+<h2 style="margin-top:14px">Check a shelf with your camera</h2><p class="sub">Point your phone at a bay. The assistant reads the label and compares it with the catalogue (demo).</p>
+<button class="btn" onclick="cam()">Open camera</button><video id="vid" playsinline muted style="width:100%;border-radius:10px;margin-top:8px;display:none"></video><div id="camres"></div>`},
+test(){const T=["Find a free call booth without walking the floors","Find a PC that has SPSS and reserve it","Check a book’s shelf, then report it as not on shelf","Check phone Wi-Fi on a floor and report a weak signal","Ask for a cooler room and see what happens at the limit","Switch to Offline and confirm the app doesn’t mislead you","Plan a session with the assistant","Read a zone’s trust score in the Digital twin","Start Autopilot and watch it re-plan after an event","Track a study room booking and see what happens if you miss the 30-minute check-in","Ask the chatbot for a booth, then ask for a person","Take the VR tour and try Cardboard view","Play the piano stairs, check in on a quiet floor and watch your points"];const n=T.filter((_,i)=>S.tests[i]).length;
+return `<h2>Test the app</h2><p class="sub">Group 6 usability checklist. Try each task, then tick it when a student completes it without help.</p>`+T.map((t,i)=>`<label class="card" style="display:flex;gap:10px;cursor:pointer"><input type="checkbox" ${S.tests[i]?"checked":""} onchange="S.tests[${i}]=this.checked;draw()"><span class="name">${t}</span></label>`).join("")+`<div class="row"><span class="name">${n} of ${T.length} passed</span><button class="btn g" onclick="copyT(${n},${T.length})">Copy results</button></div>`},
+now(){return `<h2>How busy is the library now?</h2><p class="sub">Check floors and call booths from your screen before you walk in.</p>`+
+ S.floors.map((f,i)=>`<div class="card"><div class="row"><div><div class="name">${f.n}</div><div class="meta">${f.note}</div></div>${tag(1,f.use+"% full","")}</div><div class="bar"><i style="width:${f.use}%"></i></div></div>`).join("")+
+ `<h2 style="margin-top:14px">Call booths</h2>`+[2,3].map(f=>{const n=S.booths[f];return `<div class="card"><div class="row"><div><div class="name">Floor ${f} two-person booths</div><div class="meta">${n} free${S.hold===f?" · held for you":""}</div></div>
+ ${S.hold===f?`<button class="btn o" onclick="rel()">Release</button>`:`<button class="btn" ${off()||n<1||S.hold?"disabled":""} onclick="holdB(${f})">Hold for 15 min</button>`}</div>
+ ${n<1?`<div class="note">All booths are taken. Try Floor ${f===2?3:2}, or use a phone-friendly open area on the Ground Floor.</div>`:""}</div>`}).join("")+studyRoom()},
+rooms(){return `<h2>Room temperature</h2><p class="sub">Request a change for the room you’re in. Rooms are shared, so the target is the average of requests and stays between 19 and 23 °C.</p>`+
+ S.rooms.map((r,i)=>`<div class="card"><div class="row"><div><div class="name">${r.n}</div><div class="meta">${r.t===r.goal?"Steady":"Adjusting to "+r.goal.toFixed(1)+" °C, about 10 min"}${r.req?" · "+r.req+" request"+(r.req>1?"s":"")+" today":""}</div></div>
+ <div class="temp"><button class="btn o" aria-label="Cooler, ${r.n}" ${off()?"disabled":""} onclick="tmp(${i},-.5)">−</button><b>${r.t.toFixed(1)}°</b><button class="btn o" aria-label="Warmer, ${r.n}" ${off()?"disabled":""} onclick="tmp(${i},.5)">+</button></div></div></div>`).join("")+
+ `<div class="note">If a room can’t reach your request, the app tells you and sends the report to Estates, so you aren’t left guessing.</div>`},
+pcs(){const sw=["All","SPSS","NVivo","Python","MATLAB","Stata"];
+ return `<h2>Which computer has my software?</h2><p class="sub">Filter by software, then reserve a free machine.</p><div class="chips">${sw.map(s=>`<button aria-pressed="${S.pcSw===s}" onclick="S.pcSw='${s}';draw()">${s}</button>`).join("")}</div>`+
+ S.pcs.filter(p=>S.pcSw==="All"||p.sw.includes(S.pcSw)).map(p=>`<div class="card"><div class="row"><div><div class="name">${p.id} · ${p.f}</div><div class="meta">${p.sw.join(", ")}</div></div>${p.ok?tag(1,"Free",""):tag(0,"","In use")}</div>
+ <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn" ${off()||!p.ok?"disabled":""} onclick="resv('${p.id}')">Reserve 15 min</button><button class="btn o" ${off()?"disabled":""} onclick="broke('${p.id}')">Software not working</button></div></div>`).join("")},
+books(){const b=S.books[S.book];const none=b.free===0;
+ return `<h2>Find a book</h2><p class="sub">The shelf shows when it was last confirmed, so you don’t walk to an empty bay.</p><select aria-label="Choose a book" onchange="S.book=+this.value;draw()">${S.books.map((x,i)=>`<option value="${i}" ${i===S.book?"selected":""}>${x.t} (${x.a})</option>`).join("")}</select>
+ <div class="card"><div class="name">${b.t}</div><div class="meta">${b.a}</div>
+ <div class="row" style="margin-top:8px"><div><div class="name">${b.shelf}</div><div class="meta">${b.free} of ${b.tot} copies on shelf · confirmed ${stale()?age():b.seen}</div></div>${b.miss?`<span class="tag b">Reported missing</span>`:tag(!none,"On shelf","All copies out")}</div>
+ ${none?`<div class="note">All copies are out. Read the e-book now, or place a hold and we’ll alert you.</div>`:""}
+ ${b.miss?`<div class="note">Thanks. Staff have been alerted to check this shelf. Meanwhile: ${b.free>1?"another copy is shown on this shelf, or ":""}read the e-book or place a hold.</div>`:""}
+ <div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn g" onclick="note('E-book opened (demo).')">Open e-book</button><button class="btn o" ${off()||none||b.miss?"disabled":""} onclick="miss()">Not on shelf</button><button class="btn o" ${off()?"disabled":""} onclick="note('Hold placed. You’ll be alerted in the app.')">Place a hold</button></div></div>`},
+wifi(){return `<h2>Phone Wi-Fi by floor</h2><p class="sub">See signal before you settle in, and report weak spots.</p>`+
+ S.floors.map((f,i)=>`<div class="card"><div class="row"><div><div class="name">${f.n}</div><div class="meta">Phone signal ${"●".repeat(f.wifi)+"○".repeat(5-f.wifi)}</div></div>${tag(f.wifi>=4,f.wifi>=5?"Strong":"Good","")}</div>
+ <div style="margin-top:8px"><button class="btn o" ${off()?"disabled":""} onclick="note('Weak signal reported for ${f.n}. IT Services notified.');iss('Weak phone signal: ${f.n}')">Weak signal here</button></div></div>`).join("")+
+ `<div class="note">On a call and the signal drops? Move to a call booth, or switch to the Floor 2 pods where call signal is strongest.</div>`},
+video(){const s=S.steps[S.step];return `<h2>How to borrow a book</h2><p class="sub">A five-step guide to lending at Sussex Library.</p>
+ <div class="stage" aria-live="polite"><div class="ic">${s[0]}</div><h3>Step ${S.step+1}: ${s[1]}</h3><p>${s[2]}</p></div>
+ <div class="prog">${S.steps.map((_,i)=>`<i class="${i<=S.step?"on":""}"></i>`).join("")}</div>
+ <div style="display:flex;gap:6px;flex-wrap:wrap"><button class="btn o" onclick="go(-1)">Back</button><button class="btn" onclick="vplay()">${S.play?"Pause":"Play guide"}</button><button class="btn o" onclick="go(1)">Next</button></div>
+ <p class="meta" style="margin-top:10px">More: <a href="https://www.sussex.ac.uk/library/" style="color:inherit">sussex.ac.uk/library</a></p>`}
+};
+function draw(){
+ $("#nav").innerHTML=TABS.map(([k,l])=>`<button role="tab" aria-selected="${S.tab===k}" onclick="S.tab='${k}';draw()">${l}</button>`).join("");
+ cancelAnimationFrame(S.raf);cancelAnimationFrame(S.vrRaf);if(S.r){S.r.setAnimationLoop(null);S.r.dispose();S.r=null}$("#main").innerHTML=(["video","test","vr","future"].includes(S.tab)?"":banner())+V[S.tab]();if(S.tab==="live")drawCam();if(S.tab==="vr")initVR();if(S.tab==="bot")scrollBot()}
+function holdB(f){S.booths[f]--;S.hold=f;note("Booth held for 15 minutes.");clearTimeout(S.ht);S.ht=setTimeout(()=>{if(S.hold===f){S.hold=null;S.booths[f]++;note("Your booth hold ended and was released for others.");draw()}},15*60000);draw()}
+function rel(){S.booths[S.hold]++;S.hold=null;clearTimeout(S.ht);draw()}
+function tmp(i,d){const r=S.rooms[i];const g=Math.min(23,Math.max(19,r.goal+d));if(g===r.goal){iss("Room at limit: "+r.n);note("This room can’t go "+(d>0?"warmer":"cooler")+" than "+g+" °C. Your request was sent to Estates.");return}r.goal=g;r.req++;note("Request sent. "+r.n+" is adjusting to "+g.toFixed(1)+" °C.");setTimeout(()=>{r.t=r.goal;draw()},4000);draw()}
+function resv(id){const alt=S.pcs.find(p=>p.id!==id&&p.ok&&p.sw.some(s=>S.pcs.find(q=>q.id===id).sw.includes(s)));note(id+" reserved for 15 minutes. If it’s taken first, we’ll offer "+(alt?alt.id:"the next free match")+".")}
+function broke(id){const p=S.pcs.find(x=>x.id===id);p.ok=0;iss("PC software fault: "+id);const alt=S.pcs.find(x=>x.ok&&x.sw.some(s=>p.sw.includes(s)));note(id+" flagged for IT. "+(alt?"Try "+alt.id+" ("+alt.f+") instead.":"No matching free PC right now. Ask the Help Desk."));draw()}
+function miss(){S.books[S.book].miss=1;iss("Book not on shelf: "+S.books[S.book].t);draw()}
+function go(d){S.step=(S.step+d+S.steps.length)%S.steps.length;draw()}
+function vplay(){S.play=!S.play;clearInterval(S.timer);if(S.play)S.timer=setInterval(()=>{if(S.tab!=="video"){S.play=false;clearInterval(S.timer);return}if(S.step===S.steps.length-1){S.play=false;clearInterval(S.timer)}else S.step++;draw()},5000);draw()}
+function plan(){const q=($("#q").value||"").toLowerCase();S.q=$("#q").value;
+if(off()){S.plan=`<div class="note">You’re offline, so I can’t check live PCs or booths. Try again when you’re back online, or ask at the Help Desk.</div>`;draw();return}
+const sw=["SPSS","NVivo","Python","MATLAB","Stata"].find(s=>q.includes(s.toLowerCase()));
+const call=/call|zoom|teams|booth|viva/.test(q),cold=/cold|chilly|freez/.test(q),hot=/hot|warm|stuffy/.test(q);const out=[];
+const pc=sw?S.pcs.find(p=>p.ok&&p.sw.includes(sw)):null;
+if(sw)out.push(pc?`<b>${pc.id}</b> on ${pc.f} has ${sw} and is free. <button class="btn o" onclick="resv('${pc.id}')">Reserve</button>`:`No free PC with ${sw} right now. Check again in 15 minutes, or ask the Help Desk.`);
+const bf=[2,3].find(f=>S.booths[f]>0);
+if(call)out.push(bf?`A call booth is free on <b>Floor ${bf}</b>. <button class="btn o" onclick="holdB(${bf})">Hold 15 min</button>`:`All call booths are taken. Plan B: the Floor 2 pods have the strongest call signal.`);
+const fl=pc?pc.f:(call&&bf?"Floor "+bf:null),ri=fl?["Ground Floor","Floor 1","Floor 2","Floor 3"].indexOf(fl):-1;
+if((cold||hot)&&ri>=0)out.push(`${fl} is ${S.rooms[ri].t.toFixed(1)} °C. <button class="btn o" onclick="tmp(${ri},${cold?.5:-.5})">${cold?"Warmer":"Cooler"} by 0.5°</button>`);
+else if(cold||hot)out.push("Tell me what you need on which floor and I’ll adjust the room.");
+if(!out.length)out.push("I didn’t catch a software, call or comfort need. Try “SPSS and a call booth”.");
+out.push(stale()?"Data is delayed, so confirm on arrival.":"Phone signal is good on these floors.");
+S.plan=`<div class="card" style="margin-top:12px"><div class="name">Your plan</div>${out.map(o=>`<div class="note">${o}</div>`).join("")}</div>`;draw()}
+function drawCam(){const c=$("#cam");if(!c)return;const x=c.getContext("2d"),f=S.floors[S.cf];
+const dots=Array.from({length:8},(_,i)=>({x:Math.random()*640,y:165+i*3,v:.4+Math.random()*.7}));
+const seats=[];for(let r=0;r<4;r++)for(let k=0;k<10;k++)seats.push([60+k*54,36+r*60+(r>1?36:0)]);
+const taken=Math.round(seats.length*f.use/100);
+(function loop(){x.fillStyle="#002630";x.fillRect(0,0,640,360);
+seats.forEach(([a,b],i)=>{x.fillStyle=i<taken?"#E2B979":"#1d5362";x.fillRect(a,b,34,26)});
+x.fillStyle="#fff";dots.forEach(d=>{if(S.ex==="ok")d.x=(d.x+d.v)%640;x.beginPath();x.arc(d.x,d.y,6,0,7);x.fill()});
+x.fillStyle="#cfe0e4";x.font="13px sans-serif";x.fillText(f.n+" · anonymised",12,350);
+S.raf=requestAnimationFrame(loop)})()}
+async function cam(){const r=$("#camres");try{const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});const v=$("#vid");v.srcObject=s;v.style.display="block";v.play();r.innerHTML=`<div class="note">Reading shelf label…</div>`;setTimeout(()=>{r.innerHTML=`<div class="note"><b>Bay 4B, shelf 3 detected.</b> Matches the catalogue entry for Research Methods in Psychology. If a book is missing, tap Not on shelf in Find a book.</div>`;s.getTracks().forEach(t=>t.stop())},3500)}catch(e){r.innerHTML=`<div class="note">The camera isn’t available here (permission denied or blocked). On a phone, allow camera access and try again. Fallback: pick the book in Find a book.</div>`}}
+function copyT(n,t){const m="Sussex Library Live, Group 6 usability test: "+n+" of "+t+" tasks passed.";try{navigator.clipboard.writeText(m).then(()=>note("Results copied."),()=>note(m))}catch(e){note(m)}}
+const zones=fi=>["Open desks","PC cluster","Call booths","Stacks"].map((n,i)=>({n,use:Math.min(98,S.floors[fi].use+[-10,6,-4,12][i]),bars:Math.max(2,S.floors[fi].wifi-(i===3?2:0)),temp:S.rooms[fi].t+[0,.4,-.3,.2][i],noise:[52,44,38,34][i]+(fi===0?8:0)+(fi===1?-6:0)}));
+const iss=t=>{S.issues.push(t)},pf=id=>S.pcs.find(p=>p.id===id).f,pcFor=(sw,ex)=>{const p=S.pcs.find(p=>p.ok&&p.id!==ex&&p.sw.includes(sw));return p&&p.id};
+const lg=m=>{S.log.unshift({t:new Date().toLocaleTimeString([],{hour:"2-digit",minute:"2-digit",second:"2-digit"}),m});S.log=S.log.slice(0,8)};
+const EV=[["Another student logged into your PC",a=>{const n=pcFor(a.sw,a.pc);if(n){a.pc=n;return "Reserved "+n+" ("+pf(n)+") with "+a.sw+" instead."}a.pc=null;return "No other "+a.sw+" PC is free. You’re first in the queue."}],
+["Noise spike near your seat",a=>{const n=S.pcs.find(p=>p.ok&&p.id!==a.pc&&p.f==="Floor 3"&&p.sw.includes(a.sw));if(n){a.pc=n.id;return "Moved you to "+n.id+" in the Floor 3 quiet zone."}return "No quieter "+a.sw+" PC is free. Noise-cancelling headphones can be loaned at the desk."}],
+["Wi-Fi dipped near your call booth",a=>{if(!a.call)return "Not in your plan, no action needed.";a.bf=a.bf===2?3:2;return "Switched your booth to Floor "+a.bf+", where the signal is stronger."}],
+["Room warmed above 22 °C",a=>{const i=a.pc?["Ground Floor","Floor 1","Floor 2","Floor 3"].indexOf(pf(a.pc)):2,r=S.rooms[i];r.goal=Math.max(19,r.goal-.5);r.t=r.goal;r.req++;return "Asked Estates to cool "+r.n+" to "+r.goal.toFixed(1)+" °C."}],
+["Your booth hold is about to end",a=>a.call?"Extended your hold by 10 minutes. Nobody is waiting.":"No booth in your plan."],
+["A book on your reading list was misplaced",a=>{iss("Misplaced book (auto-detected)");return "Opened the e-book now and alerted staff to check the shelf."}]];
+function apStart(){const sw=$("#asw").value,call=$("#acall").checked,pc=pcFor(sw);S.ap={sw,call,pc,bf:call?([2,3].find(f=>S.booths[f]>0)||2):null};S.log=[];lg("Plan started: "+(pc?pc+" ("+pf(pc)+") with "+sw:"no free "+sw+" PC, queued")+(call?", booth on Floor "+S.ap.bf:"")+".");clearInterval(S.api);S.api=setInterval(apTick,5000);draw()}
+function apTick(){if(!S.ap)return;if(off()){lg("Offline: autopilot paused until you reconnect.");draw();return}const e=EV[Math.floor(Math.random()*EV.length)];lg("<b>"+e[0]+".</b> "+e[1](S.ap));if(["auto","staff"].includes(S.tab))draw()}
+function apStop(){clearInterval(S.api);S.ap=null;draw()}
+function voice(){const R=window.SpeechRecognition||window.webkitSpeechRecognition;if(!R){note("Voice input isn’t supported in this browser. Type your request instead.");return}try{const r=new R();r.lang="en-GB";r.onresult=e=>{$("#q").value=e.results[0][0].transcript;plan()};r.onerror=()=>note("Couldn’t hear you. Check microphone permission or type instead.");r.start();note("Listening…")}catch(e){note("Voice isn’t available here.")}}
+function studyRoom(){const b=S.bk;const h=`<h2 style="margin-top:14px">Group study room</h2><p class="sub">Rooms are booked on the Library’s own booking page: 3 hours a day, and you must check in with the QR code on the door within 30 minutes or the booking is cancelled.</p>`;
+if(!b)return h+`<div class="card"><div class="meta">No booking tracked yet.</div><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><a class="btn g" style="text-decoration:none" target="_blank" rel="noopener" href="https://sussex.libcal.com/space/17805">Book on the Library site</a><button class="btn o" onclick="S.bk={late:0};draw()">Track a demo booking</button></div></div>`;
+const left=30-b.late,c=left<=0;
+return h+`<div class="card"><div class="row"><div><div class="name">Booking has started</div><div class="meta">${c?"Cancelled: no check-in within 30 minutes":left+" min left to check in at the door QR code"}</div></div><span class="tag ${c?"b":left<=10?"w":""}">${c?"Cancelled":left<=10?"Check in soon":"Booked"}</span></div>
+${c?`<div class="note">Your room was released. Nearest option: a free call booth on Floor ${[2,3].find(f=>S.booths[f]>0)||2}, or book another slot on the Library site.</div>`:left<=10?`<div class="note">Reminder sent to your phone so you don’t lose the room.</div>`:""}
+<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap"><button class="btn" onclick="S.bk=null;note('Checked in. The room is yours.');draw()">I’ve checked in</button><button class="btn o" ${c?"disabled":""} onclick="S.bk.late=Math.min(30,S.bk.late+10);draw()">Simulate 10 minutes passing</button></div></div>`}
+const VW=[[0,1.6,12,0],[-12,1.6,-5.5,-1.5708],[2,1.6,1,-1.5708]];
+function vrGo(i){S.vi=i;const c=S.vc;if(!c)return;const v=VW[i];c.cam.position.set(v[0],v[1],v[2]);c.yaw=v[3];c.pitch=0}
+function initVR(){const el=$("#vr");if(!el)return;if(typeof THREE==="undefined"){el.innerHTML="<div class='note'>The 3D engine didn’t load. Check your connection and reload.</div>";return}
+const w=el.clientWidth,h=320,sc=new THREE.Scene(),cam=new THREE.PerspectiveCamera(70,w/h,.1,60),r=new THREE.WebGLRenderer({antialias:true});
+sc.background=new THREE.Color(0x002630);sc.fog=new THREE.Fog(0x002630,10,32);sc.add(new THREE.AmbientLight(0xffffff,.65));const dl=new THREE.DirectionalLight(0xffffff,.7);dl.position.set(5,10,6);sc.add(dl);
+const box=(x,y,z,a,b,c,col,o)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(a,b,c),new THREE.MeshLambertMaterial(Object.assign({color:col},o||{})));m.position.set(x,y,z);sc.add(m)};
+box(0,-.05,0,40,.1,40,0x0b3440);
+for(let i=0;i<2;i++)for(let k=0;k<4;k++){box(-9+k*4.6,1.1,-4-i*3,4,2.2,.5,0xE2B979);box(-9+k*4.6,2.25,-4-i*3,4,.1,.55,0x8a6a2f)}
+for(let k=0;k<5;k++){box(-6+k*3,.75,4,1.8,.08,.9,0xF5F3EE);box(-6+k*3,1.05,3.7,.7,.45,.05,0x5cc8d6,{emissive:0x1a6a78});box(-6+k*3,.4,4,.1,.8,.8,0x555555)}
+[[-2,1],[1,0],[4,1]].forEach(([z,free])=>{box(8,1.2,z,2,2.4,2,0x5cc8d6,{transparent:true,opacity:.35});box(8,2.6,z,.6,.15,.6,free?0x34d399:0xf43f5e,{emissive:free?0x145a3d:0x7a1630})});
+r.setSize(w,h);r.setPixelRatio(Math.min(devicePixelRatio,2));el.appendChild(r.domElement);S.r=r;S.vc={cam,sc,yaw:0,pitch:0};vrGo(S.vi||0);
+let d=null;r.domElement.addEventListener("pointerdown",e=>{d=[e.clientX,e.clientY]});addEventListener("pointerup",()=>{d=null});
+r.domElement.addEventListener("pointermove",e=>{if(!d)return;const c=S.vc;c.yaw+=(e.clientX-d[0])*.006;c.pitch=Math.max(-1,Math.min(1,c.pitch+(e.clientY-d[1])*.004));d=[e.clientX,e.clientY]});
+cam.rotation.order="YXZ";
+const loop=()=>{S.vrRaf=requestAnimationFrame(loop);const c=S.vc;cam.rotation.set(c.pitch,c.yaw,0);
+if(S.st){r.setScissorTest(true);cam.aspect=w/2/h;cam.updateProjectionMatrix();[[-.032,0],[.032,w/2]].forEach(([o,x])=>{cam.translateX(o);r.setViewport(x,0,w/2,h);r.setScissor(x,0,w/2,h);r.render(sc,cam);cam.translateX(-o)})}else{r.setScissorTest(false);cam.aspect=w/h;cam.updateProjectionMatrix();r.setViewport(0,0,w,h);r.render(sc,cam)}};loop();
+if(navigator.xr)navigator.xr.isSessionSupported("immersive-vr").then(ok=>{if(ok&&$("#xrb"))$("#xrb").hidden=false}).catch(()=>{})}
+function enterXR(){const r=S.r;if(!r||!navigator.xr)return;navigator.xr.requestSession("immersive-vr",{optionalFeatures:["local-floor"]}).then(s=>{cancelAnimationFrame(S.vrRaf);r.xr.enabled=true;r.xr.setReferenceSpaceType("local");r.xr.setSession(s);r.setAnimationLoop(()=>r.render(S.vc.sc,S.vc.cam))}).catch(()=>note("Couldn’t start VR. Check that your headset browser allows it."))}
+function scrollBot(){const c=$("#chat");if(c)c.scrollTop=c.scrollHeight}
+function send(t){const i=$("#bq"),q=(t||(i&&i.value)||"").trim();if(!q)return;S.msgs.push({r:"me",m:q.replace(/</g,"&lt;")});S.msgs.push({r:"bot",m:reply(q.toLowerCase())});draw()}
+function reply(q){const sw=["SPSS","NVivo","Python","MATLAB","Stata"].find(s=>q.includes(s.toLowerCase()));
+if(off())return "I’m offline, so I can’t check live data. For help now, call 01273 678163 or visit the Service Desk in staffed hours.";
+if(sw){const p=pcFor(sw);return p?p+" on "+pf(p)+" has "+sw+" and is free now. Reserve it in the Computers tab.":"No "+sw+" PC is free right now. Check the Computers tab or try again in 15 minutes."}
+if(/person|human|staff|help|desk|chat/.test(q)){iss("Chatbot handoff requested");return "Library staff can help. Online chat runs 9am to 5pm Monday to Friday, you can email library@sussex.ac.uk or call 01273 678163. I’ve also flagged this chat for staff."}
+if(/booth|call|zoom|teams/.test(q)){const f=[2,3].find(f=>S.booths[f]>0);return f?"A two-person booth is free on Floor "+f+". Hold it for 15 minutes in the Now tab.":"All booths are taken. Try a quiet corner on Floor 3 or a group room on the Library site."}
+if(/busy|crowd|quiet|seat|space/.test(q)){const f=S.floors.reduce((a,b)=>b.use<a.use?b:a);return "Quietest floor now: "+f.n+" at "+f.use+"% full."}
+if(/study room|group room|book a room/.test(q))return "Group rooms are booked on the Library site: 3 hours a day, and you must check in at the door QR code within 30 minutes. <a href='https://sussex.libcal.com/space/17805' target='_blank' rel='noopener'>Book a room</a>";
+if(/wifi|wi-fi|signal|internet/.test(q))return "Phone signal is strongest on the Ground Floor and Floor 2. You can report weak spots in the Wi-Fi tab.";
+if(/cold|hot|warm|temp|stuffy/.test(q))return "You can request a change of 0.5 °C at a time in the Rooms & temperature tab.";
+if(/book|borrow|lend|loan|renew/.test(q))return "Search in <a href='https://sussex.primo.exlibrisgroup.com/discovery/search?vid=44SUS_INST:44SUS_VU1' target='_blank' rel='noopener'>Library Search</a>, then check the shelf in Find a book. The Lending video tab shows each step.";
+return "I’m not sure about that one, and I’d rather not guess. Library staff can help: chat 9am to 5pm Monday to Friday, or library@sussex.ac.uk."}
+const NT=[261.63,293.66,329.63,349.23,392,440,493.88,523.25];let AC=null,NZ=null;
+function tone(f,d=.35){try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.type="triangle";o.frequency.value=f;g.gain.setValueAtTime(.25,AC.currentTime);g.gain.exponentialRampToValueAtTime(.001,AC.currentTime+d);o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function stp(i){tone(NT[i]);S.stairs++;S.pts++;if(S.stairs%8===0){S.pts+=10;note("Floor climbed by the stairs. +10 bonus points")}draw()}
+function sprint(){if(S.qs.sprint)return;S.qs.sprint=1;draw();setTimeout(()=>{S.qs.sprint=2;S.pts+=15;tone(660,.6);note("Sprint done. +15 points");if(S.tab==="fun")draw()},10000)}
+function noise(on){try{if(NZ){NZ.stop();NZ=null}if(!on){S.snd=0;draw();return}AC=AC||new(window.AudioContext||window.webkitAudioContext)();const n=AC.sampleRate*2,b=AC.createBuffer(1,n,AC.sampleRate),d=b.getChannelData(0);let l=0;for(let i=0;i<n;i++){const w=Math.random()*2-1;l=(l+.02*w)/1.02;d[i]=l*3.5}const s=AC.createBufferSource();s.buffer=b;s.loop=true;const g=AC.createGain();g.gain.value=.4;s.connect(g);g.connect(AC.destination);s.start();NZ=s;S.snd=1;draw()}catch(e){note("Sound isn’t available here.")}}
+draw();
+</script>
+</body>
+</html>
